@@ -37,6 +37,7 @@ router.post('/:episode_id', async (req,res) => {
     try {
         const data = {
                 "episode_name": req.body.episode_name,
+                "episode_audio": req.body.episode_audio,
                 "episode_category": req.body.episode_category,
                 "episode_length": req.body.episode_length,
                 "episode_description": req.body.episode_description,
@@ -59,12 +60,13 @@ router.post('/:episode_id', async (req,res) => {
 */
 router.get('/:podcast_title', async (req, res)=>{
     try {
-        const result = await PostPodcast.find({"podcast_title":req.params.podcast_title});
+        const result = await PostPodcast.find({"_id":req.params.podcast_title});
         res.json(result);
     } catch (error) {
         res.json({message:error});
     }
 });
+
 
 /*
     delete a podcast by podcast ID

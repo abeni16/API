@@ -4,7 +4,10 @@ var float = require('mongoose-float').loadType(mongoose);
 const ObjectID = mongoose.Schema.Types.ObjectId;
 
 const Episode = mongoose.Schema({
-    episode_name:{
+        episode_name:{
+            type: String
+        },
+        episode_audio:{
             type: String
         },
         episode_category:{

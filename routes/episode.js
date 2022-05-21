@@ -14,14 +14,34 @@ router.get('/', async (req,res) => {
     }
 });
 
+router.get('/:podcast_id/epsiode',async(req,res)=>{
+    try{
+        const result = await PostPodcast.findById(req.params.podcast_id);
+        res.json(result.episodes)
+    }
+    catch(error){
+        res.json({message:error})
+    }
+})
+router.get("/:podcast_id/epsiode/:epsiode_id",async(req,res)=>{
+    try{
+        const result = await PostPodcast.findById(req.params.podcast_id);
+        res.json(result.episodes.id(req.params.epsiode_id))
+    }catch(error)
+    {
+        res.json({message:error})   
+    }
+  
+  
 
+})
 /*
     search a episode name using episode name
 */
-router.get('/:episode_name', async (req, res)=>{
+router.get('/:episode_id', async (req, res)=>{
     try {
-        const result = await PostPodcast.find({episodes:{$elemMatch:{"episode_name":req.params.episode_name}}});
-        res.json(result);
+        const result = await PostPodcast.findById(req.params.episode_id);
+        res.json(result.episodes._id(req.params.episode_id));
     } catch (error) {
         res.json({message:error});
     }
@@ -58,6 +78,7 @@ router.put('/:episode_id', async (req, res)=>{
         },
         {$set:{
             "episodes.$.episode_name": req.body.episode_name,
+            "episodes.$.episode_audio": req.body.episode_audio,
             "episodes.$.episode_category": req.body.episode_category,
             "episodes.$.episode_length": req.body.episode_length,
             "episodes.$.episode_description": req.body.episode_description,
