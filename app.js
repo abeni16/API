@@ -1,25 +1,25 @@
-const app = require('express')();
-const mongoose = require('mongoose');
+const app = require("express")();
+const mongoose = require("mongoose");
 
-const bodyParser = require('body-parser');
+const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
-const cors = require('cors');
+const cors = require("cors");
 app.use(cors());
-require('dotenv/config');
+require("dotenv/config");
 
-const episode = require('./routes/episode');
-app.use('/episodes',episode);
+const chapter = require("./routes/chapters");
+app.use("/chapters", chapter);
 
-const podcast = require('./routes/podcast');
-app.use('/podcasts',podcast);
+const audiobook = require("./routes/audioBook");
+app.use("/audiobooks", audiobook);
 
-app.get('/',(req,res) =>{
-    res.send('API for podcast 👉 localhost:3000/podcasts');
+app.get("/", (req, res) => {
+  res.send("API for AudioBook 👉 localhost:3000/audiobook");
 });
 
-mongoose.connect(process.env.DB,() => {
-    console.log('Connected to DB');
+mongoose.connect(process.env.DB, () => {
+  console.log("Connected to DB");
 });
 
 app.listen(3000);
